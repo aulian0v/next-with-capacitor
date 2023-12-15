@@ -1,5 +1,4 @@
 import { useEffect, createContext, useContext, useState } from "react";
-import { GoogleAuth } from "@codetrix-studio/capacitor-google-auth";
 import type { SessionInstance, Session } from "../types";
 
 const defaultSession = {
@@ -43,11 +42,13 @@ export const SessionProvider: SessionInstance["SessionProvider"] = ({
         });
       };
 
-      updateSession({
-        data: null,
-        signIn: signIn,
-        signOut: GoogleAuth.signOut,
-      });
+      const signOut = () => {
+        return GoogleAuth.signOut().then(() => {
+          setSession(defaultSession);
+        });
+      };
+
+      updateSession({ data: null, signIn, signOut });
     });
   }, []);
 
