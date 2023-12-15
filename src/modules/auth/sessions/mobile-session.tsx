@@ -44,7 +44,7 @@ export const SessionProvider: SessionInstance["SessionProvider"] = ({
 
       const signOut = () => {
         return GoogleAuth.signOut().then(() => {
-          setSession(defaultSession);
+          updateSession({ data: null });
         });
       };
 
